@@ -15,6 +15,16 @@ const getCoinPrices = async (coin) => {
     }
   };
 
+  app.get('/coin/:name/price', async (req, res) => {
+    const coin = req.params.name;
+    try {
+      const price = await getCoinPrices(coin);
+      res.json({ coin, price });
+    } catch (error) {
+      res.status(500).json({ error: 'Error fetching coin price' });
+    }
+  });
+
 app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}`);
   });
