@@ -15,7 +15,7 @@ const getCoinPrices = async (coin) => {
     }
   };
 
-  app.get('/coin/:name/price', async (req, res) => {
+app.get('/coin/:name/price', async (req, res) => {
     const coin = req.params.name;
     try {
       const price = await getCoinPrices(coin);
@@ -25,7 +25,7 @@ const getCoinPrices = async (coin) => {
     }
   });
 
-  app.post('/coin/convert', async (req, res) => {
+app.post('/coin/convert', async (req, res) => {
     const { coin, amount } = req.body;
     try {
       const price = await getCoinPrices(coin);
@@ -33,6 +33,20 @@ const getCoinPrices = async (coin) => {
       res.json({ coin, amount, usdEquivalent });
     } catch (error) {
       res.status(500).json({ error: 'Error converting coin to USD' });
+    }
+  });
+
+  app.post('/coin/convert/:from/:to', async (req, res) => {
+    const { from, to } = req.params;
+    const { amount } = req.body;
+  
+    try {
+      const fromPrice = await getCoinPrices(from);
+      const toPrice = await getCoinPrices(to);
+      const convertedAmount = (amount * fromPrice) / toPrice;
+      res.json({ from, to, amount, convertedAmount });
+    } catch (error) {
+      res.status(500).json({ error: 'Error converting coins' });
     }
   });
 
