@@ -25,6 +25,17 @@ const getCoinPrices = async (coin) => {
     }
   });
 
+  app.post('/coin/convert', async (req, res) => {
+    const { coin, amount } = req.body;
+    try {
+      const price = await getCoinPrices(coin);
+      const usdEquivalent = price * amount;
+      res.json({ coin, amount, usdEquivalent });
+    } catch (error) {
+      res.status(500).json({ error: 'Error converting coin to USD' });
+    }
+  });
+
 app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}`);
   });
