@@ -1,16 +1,82 @@
-# backend-internship
-Repo for backend development interns
+# Swaply Backend Application
 
-# Description
-Hi, you are expected to create a backend application called Swaply, the backend application fetches real time crypto prices in USD from a service provider e.g Coingecko, Binance. The backend application in turn provides APIs that will show these prices, another APi for converting an amount of the currency to the equivalence in USD
+Swaply is a Node.js backend application that fetches real-time cryptocurrency prices in USD from a service provider (e.g., Coingecko, Binance) and provides various APIs to access these prices and perform conversions between different cryptocurrencies.
 
-# Requirements
--  Create a new branch with your full name
-- HTTP request to get coin prices
-- API to show coin prices
-- API to convert coin amount to USD
-- Bonus - API to convert from a coin to another coin e.g from Bitcoin to Ethereum
+## Table of Contents
 
-# Technology
-You are expected to either use Laravel or Node JS for the application
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Usage](#usage)
+- [API Endpoints](#api-endpoints)
 
+## Requirements
+
+- Node.js (>=12.x)
+- npm
+
+## Installation
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/uzo-felix/backend-internship.git
+cd backend-internship
+```
+
+2. Install the dependencies:
+
+```bash
+npm install
+```
+
+## Usage
+
+To start the Swaply backend application, run the following command:
+
+```bash
+npm start
+```
+
+By default, the application will be available at `http://localhost:3000`. You can change the port in the `app.js` file if needed.
+
+## API Endpoints
+
+The Swaply backend provides the following API endpoints:
+
+1. **Get Coin Prices**
+
+   Retrieve the real-time price of a specific cryptocurrency in USD.
+
+   - **Endpoint:** `GET /coin/:name/price`
+   - **Example:** `GET http://localhost:3000/coin/bitcoin/price`
+
+2. **Convert Coin Amount to USD**
+
+   Convert a specific amount of a cryptocurrency to its equivalent value in USD.
+
+   - **Endpoint:** `POST /coin/convert`
+   - **Example:** `POST http://localhost:3000/coin/convert`
+
+   ```json
+   // Request Body
+   {
+     "coin": "ethereum",
+     "amount": 5
+   }
+   ```
+
+3. **Convert from One Coin to Another**
+
+   Convert a specific amount of one cryptocurrency to its equivalent value in another cryptocurrency.
+
+   - **Endpoint:** `POST /coin/convert/:from/:to`
+   - **Example:** `POST http://localhost:3000/coin/convert/bitcoin/ethereum`
+
+   ```json
+   // Request Body
+   {
+     "amount": 0.1
+   }
+   ```
+
+## Testing
